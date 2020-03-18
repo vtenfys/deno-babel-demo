@@ -1,0 +1,16 @@
+{
+  "scripts": {
+    "demo": "deno -A loader.js ./demos/babel",
+    "prepare": "node scripts/patch-modules.js"
+  },
+  "dependencies": {
+    "@babel/core": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "@babel/preset-react": "^7.8.3",
+    "assert": "^2.0.0",
+    "util": "^0.12.2"
+  },
+  "devDependencies": {
+    "replace-in-file": "^5.0.2"
+  }
+}

@@ -23,6 +23,21 @@ async function main() {
     from: "+_fs2().default.statSync(filepath).mtime",
     to: "null"
   });
+
+  // 1. Deno's fs port hasn't implemented existsSync
+  //    or statSync - map these to the stdlib aliases
+  // 2. Deno's JSON.parse only accepts strings, not buffers
+  await replace({
+    files: "node_modules/browserslist/node.js",
+    from: [
+      "fs.existsSync(file) && fs.statSync(file)",
+      "JSON.parse(fs.readFileSync(file))"
+    ],
+    to: [
+      "(fs.existsSync||_fs.existsSync)(file) && (fs.statSync||_fs.statSync)(file)",
+      "JSON.parse(fs.readFileSync(file, {encoding: 'utf8'}))"
+    ]
+  });
 }
 
 main();
